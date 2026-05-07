@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portofolio - galihwikuu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style/style.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- NAV -->
+
+  <nav>
+    <div class="nav-logo">GW<span>.</span></div>
+
+    <!-- Desktop: links di tengah -->
+    <ul class="nav-links">
+      <li><a href="index.html" onclick="document.getElementById('nav-toggle').checked=false">Beranda</a></li>
+      <li><a href="portfolio.html" onclick="document.getElementById('nav-toggle').checked=false">Portfolio</a></li>
+      <li><a href="kontak.html" onclick="document.getElementById('nav-toggle').checked=false">Kontak</a></li>
+    </ul>
+
+    <!-- Kanan: dark toggle + hamburger -->
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode" aria-label="Toggle dark mode">
+        <span class="knob"></span>
+      </button>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle-input"/>
+      <label for="nav-toggle" class="hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    <label for="nav-toggle" class="nav-overlay"></label>
+
+  </nav>
+
+  <!-- HERO -->
+
+  <div class="hero" id="beranda">
+  <div class="hero-avatar fade-up">
+    <img src="images/wiku.jpeg" alt="Foto Profil" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"/>
+  </div>
+    <div class="hero-text fade-up">
+      <h1>Halo, saya <span>Galih Wiku Dhamar Aji!</span>👋</h1>
+      <div class="subtitle fade-up">Mahasiswa Teknik Informatika · Semester 4</div>
+      <p>Berawal dari rasa penasaran terhadap dunia teknologi, saya mulai belajar pemrograman dan membangun berbagai proyek sederhana. Saat ini saya fokus di bidang web development dan terus mengembangkan skill untuk menjadi developer yang kompeten.</p>
+      <div class="badge-row fade-up">
+        <span class="badge orange fade-up">Universitas Muhammadiyah Surakarta</span>
+        <span class="badge teal fade-up">Surakarta</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+        <section id="skill">
+    <div class="section-header fade-up">
+      <span class="section-icon">🛠️</span>
+      <h2>Skill yang saat ini dipelajari</h2>
+    </div>
+    <div class="skills-wrap">
+      <div class="skill-pill fade-up"><i class="devicon-html5-plain colored"></i> HTML & CSS</div>
+      <div class="skill-pill fade-up"><i class="devicon-javascript-plain colored"></i> JavaScript</div>
+      <div class="skill-pill fade-up"><i class="devicon-nodejs-plain colored"></i> Node.js</div>
+      <div class="skill-pill fade-up"><i class="devicon-python-plain colored"></i> Python</div>
+      <div class="skill-pill fade-up"><i class="devicon-php-plain colored"></i> PHP</div>
+      <div class="skill-pill fade-up"><i class="devicon-mysql-plain colored"></i> MySQL</div>
+      <div class="skill-pill fade-up"><i class="devicon-laravel-plain colored"></i> Laravel</div>
+      <div class="skill-pill fade-up"><i class="devicon-flutter-plain colored"></i> Flutter</div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+  <!-- FOOTER -->
+
+  <footer>
+    © 2026 galihwikuu. All rights reserved.
+  </footer>
+
+  <!-- script.js tidak lagi dibutuhkan untuk animasi scroll (sudah pure CSS) -->
+
+  <!-- Hapus baris ini jika script.js hanya berisi logika scroll/fade -->
+
+  <script src="script.js"></script>
+
+
+
+</body>
+</html>

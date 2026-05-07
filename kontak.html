@@ -3,39 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Kontak --galihwikuu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-      <nav>
-    <div class="nav-logo">GW<span>.</span></div>
+<nav>
 
-    <!-- Desktop: links di tengah -->
-    <ul class="nav-links">
-      <li><a href="index.html" onclick="document.getElementById('nav-toggle').checked=false">Beranda</a></li>
-      <li><a href="portfolio.html" onclick="document.getElementById('nav-toggle').checked=false">Portfolio</a></li>
-      <li><a href="kontak.html" onclick="document.getElementById('nav-toggle').checked=false">Kontak</a></li>
-    </ul>
+  <div class="nav-logo">
+    GW<span>.</span>
+  </div>
 
-    <!-- Kanan: dark toggle + hamburger -->
-    <div class="nav-right">
-      <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode" aria-label="Toggle dark mode">
-        <span class="knob"></span>
-      </button>
-      <input type="checkbox" id="nav-toggle" class="nav-toggle-input"/>
-      <label for="nav-toggle" class="hamburger" aria-label="Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </label>
-    </div>
+  <ul class="nav-links">
+    <li>
+      <a href="index.html"
+        onclick="document.getElementById('nav-toggle').checked=false">
+        Beranda
+      </a>
+    </li>
 
-    <label for="nav-toggle" class="nav-overlay"></label>
+    <li>
+      <a href="portfolio.html"
+        onclick="document.getElementById('nav-toggle').checked=false">
+        Portfolio
+      </a>
+    </li>
 
-  </nav>
+    <li>
+      <a href="kontak.html"
+        onclick="document.getElementById('nav-toggle').checked=false">
+        Kontak
+      </a>
+    </li>
+  </ul>
+
+  <div class="nav-right">
+
+    <button
+      class="theme-toggle"
+      id="themeToggle"
+      title="Toggle dark/light mode"
+      aria-label="Toggle dark mode">
+
+      <span class="knob"></span>
+    </button>
+
+    <input
+      type="checkbox"
+      id="nav-toggle"
+      class="nav-toggle-input">
+
+    <label for="nav-toggle" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+  </div>
+
+  <label for="nav-toggle" class="nav-overlay"></label>
+
+</nav>
 
       <!-- KONTAK -->
 
@@ -70,10 +101,28 @@
     © 2026 galihwikuu. All rights reserved.
   </footer>
 
-  <!-- script.js tidak lagi dibutuhkan untuk animasi scroll (sudah pure CSS) -->
-
-  <!-- Hapus baris ini jika script.js hanya berisi logika scroll/fade -->
-
   <script src="script.js"></script>
+
+  <script>
+    const currentPage = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      const linkPage = link.getAttribute('href').split('/').pop();
+      if (linkPage === currentPage) link.classList.add('active');
+    });
+
+    // Dark mode
+    const toggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+
+    toggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-      * { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
       :root {
         --bg: #f5f0e8;
@@ -10,6 +10,24 @@
         --accent3: #ffe66d;
         --card: #fffdf7;
         --border: #e5e0d5;
+        --toggle-bg: #e5e0d5;
+        --toggle-knob: #fffdf7;
+        --toggle-icon: '☀️';
+      }
+
+      /* DARK MODE VARIABLES */
+      [data-theme="dark"] {
+        --bg: #1a1814;
+        --white: #252218;
+        --text: #f0ebe0;
+        --muted: #a09890;
+        --accent: #ff6b35;
+        --accent2: #4ecdc4;
+        --accent3: #ffe66d;
+        --card: #252218;
+        --border: #3a3530;
+        --toggle-bg: #3a3530;
+        --toggle-knob: #252218;
       }
 
       html { scroll-behavior: smooth; }
@@ -20,6 +38,7 @@
         font-family: 'Nunito', sans-serif;
         font-size: 15px;
         line-height: 1.6;
+        transition: background 0.3s ease, color 0.3s ease;
       }
 
       /* NAV */
@@ -31,13 +50,25 @@
         justify-content: space-between;
         align-items: center;
         position: sticky; top: 0; z-index: 99;
+        transition: background 0.3s ease, border-color 0.3s ease;
       }
       .nav-logo {
         font-weight: 800;
         font-size: 20px;
+        flex-shrink: 0;
       }
       .nav-logo span { color: var(--accent); }
-      .nav-links { display: flex; gap: 24px; list-style: none; }
+
+      /* NAV LINKS — desktop, benar-benar di tengah navbar */
+      .nav-links {
+        display: flex;
+        gap: 24px;
+        list-style: none;
+        align-items: center;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
       .nav-links a {
         color: var(--muted);
         text-decoration: none;
@@ -46,6 +77,108 @@
         transition: color .2s;
       }
       .nav-links a:hover { color: var(--accent); }
+
+      /* NAV RIGHT — toggle + hamburger */
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-left: auto;
+      }
+
+      /* HAMBURGER — hidden on desktop */
+      .nav-toggle-input { display: none; }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+        border-radius: 8px;
+        border: 2px solid var(--border);
+        padding: 7px;
+        background: var(--white);
+        transition: border-color .2s, background .2s;
+        flex-shrink: 0;
+      }
+      .hamburger:hover { border-color: var(--accent); }
+      .hamburger span {
+        display: block;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--text);
+        transition: transform .3s ease, opacity .3s ease, width .3s ease;
+        transform-origin: center;
+      }
+      .hamburger span:nth-child(1) { width: 100%; }
+      .hamburger span:nth-child(2) { width: 70%; }
+      .hamburger span:nth-child(3) { width: 100%; }
+
+      /* Hamburger → X saat terbuka */
+      .nav-right:has(#nav-toggle:checked) .hamburger span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+        width: 100%;
+      }
+      .nav-right:has(#nav-toggle:checked) .hamburger span:nth-child(2) {
+        opacity: 0; width: 0;
+      }
+      .nav-right:has(#nav-toggle:checked) .hamburger span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+        width: 100%;
+      }
+
+      /* OVERLAY & mobile menu via :has() */
+      nav:has(#nav-toggle:checked) .nav-overlay {
+        display: block;
+      }
+      .theme-toggle {
+        background: var(--toggle-bg);
+        border: 2px solid var(--border);
+        border-radius: 50px;
+        width: 56px;
+        height: 28px;
+        cursor: pointer;
+        position: relative;
+        flex-shrink: 0;
+        transition: background 0.3s ease, border-color 0.3s ease;
+        display: flex;
+        align-items: center;
+        padding: 2px;
+      }
+      .theme-toggle:hover {
+        border-color: var(--accent);
+      }
+      .theme-toggle .knob {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--white);
+        border: 2px solid var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        position: absolute;
+        left: 3px;
+        transition: transform 0.3s ease, background 0.3s ease;
+        box-shadow: 1px 1px 0 var(--text);
+      }
+      [data-theme="dark"] .theme-toggle .knob {
+        transform: translateX(27px);
+      }
+      .theme-toggle .knob::after {
+        content: '✦';
+        font-size: 10px;
+        color: var(--accent);
+      }
+      [data-theme="dark"] .theme-toggle .knob::after {
+        content: '◗';
+        font-size: 10px;
+        color: var(--muted);
+      }
 
       /* HERO */
       .hero {
@@ -66,6 +199,7 @@
         flex-shrink: 0;
         box-shadow: 4px 4px 0 var(--text);
         transition: transform .15s, box-shadow .15s;
+        overflow: hidden;
       }
       .hero-avatar:hover {
         transform: translate(-2px, -2px);
@@ -113,6 +247,7 @@
         margin: 0 auto;
         border: none;
         border-top: 2px dashed var(--border);
+        transition: border-color 0.3s ease;
       }
 
       /* SECTION */
@@ -137,7 +272,7 @@
         font-size: 13px;
         font-weight: 700;
         background: var(--white);
-        transition: transform .15s, box-shadow .15s;
+        transition: transform .15s, box-shadow .15s, background 0.3s ease, border-color 0.3s ease;
         cursor: default;
       }
       .skill-pill:hover {
@@ -149,6 +284,13 @@
       .skill-pill.s3 { background: #fff3cc; }
       .skill-pill.s4 { background: #d4ecd4; }
       .skill-pill.s5 { background: #ddd4f0; }
+
+      [data-theme="dark"] .skill-pill { background: #2e2b24; }
+      [data-theme="dark"] .skill-pill.s1 { background: #3d2a22; }
+      [data-theme="dark"] .skill-pill.s2 { background: #1e3533; }
+      [data-theme="dark"] .skill-pill.s3 { background: #3a3318; }
+      [data-theme="dark"] .skill-pill.s4 { background: #1e3320; }
+      [data-theme="dark"] .skill-pill.s5 { background: #2a2440; }
 
       /* PROYEK */
       .projects-grid {
@@ -162,7 +304,7 @@
         border-radius: 12px;
         padding: 24px;
         box-shadow: 4px 4px 0 var(--text);
-        transition: transform .15s, box-shadow .15s, opacity .6s;
+        transition: transform .15s, box-shadow .15s, background 0.3s ease, border-color 0.3s ease;
       }
       .project-card:hover {
         transform: translate(-2px, -2px);
@@ -179,6 +321,7 @@
         border-radius: 20px;
         background: var(--bg);
         border: 1px solid var(--border);
+        transition: background 0.3s ease, border-color 0.3s ease;
       }
       .project-link {
         font-size: 13px;
@@ -197,6 +340,7 @@
         padding: 18px 22px;
         display: flex; gap: 16px; align-items: flex-start;
         margin-bottom: 16px;
+        transition: background 0.3s ease, border-color 0.3s ease;
       }
       .exp-dot {
         width: 40px; height: 40px;
@@ -205,6 +349,7 @@
         display: flex; align-items: center; justify-content: center;
         font-size: 18px;
         flex-shrink: 0;
+        transition: border-color 0.3s ease;
       }
       .exp-body h4 { font-weight: 800; font-size: 15px; }
       .exp-body .exp-place { font-size: 13px; color: var(--accent); font-weight: 700; }
@@ -220,6 +365,7 @@
         box-shadow: 5px 5px 0 var(--text);
         color: white;
         text-align: center;
+        transition: border-color 0.3s ease;
       }
       .contact-card h3 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
       .contact-card p { font-size: 14px; opacity: 0.9; margin-bottom: 24px; }
@@ -247,6 +393,7 @@
         font-size: 13px;
         color: var(--muted);
         border-top: 2px dashed var(--border);
+        transition: border-color 0.3s ease;
       }
       footer span { color: var(--accent); font-weight: 700; }
 
@@ -255,79 +402,207 @@
         .badge-row { justify-content: center; }
         section { padding: 40px 20px; }
         nav { padding: 14px 20px; }
-        .nav-links { gap: 14px; }
         .contact-card { padding: 24px; }
+        .nav-right { gap: 10px; margin-left: auto; }
+
+        /* Hamburger tampil di mobile */
+        .hamburger { display: flex; }
+
+        /* Nav links tersembunyi, geser dari kanan */
+        .nav-links {
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+          position: fixed;
+          top: 0;
+          left: auto;
+          right: -280px;
+          transform: none;
+          width: 260px;
+          height: 100dvh;
+          background: var(--white);
+          border-left: 2px solid var(--border);
+          padding: 80px 24px 32px;
+          z-index: 99;
+          transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                      background 0.3s ease,
+                      border-color 0.3s ease;
+          box-shadow: -4px 0 24px rgba(0,0,0,0.08);
+          list-style: none;
+          align-items: flex-start;
+          overflow-y: auto;
+        }
+
+        /* Tampilkan saat checkbox checked */
+        nav:has(#nav-toggle:checked) .nav-links {
+          right: 0;
+        }
+
+        .nav-links li {
+          width: 100%;
+          border-bottom: 1px solid var(--border);
+        }
+        .nav-links li:last-child { border-bottom: none; }
+
+        .nav-links a {
+          display: block;
+          padding: 16px 4px;
+          font-size: 16px;
+          font-weight: 700;
+          color: var(--text);
+          width: 100%;
+          transition: color .2s, padding-left .2s;
+        }
+        .nav-links a:hover {
+          color: var(--accent);
+          padding-left: 8px;
+        }
+
+        /* Overlay */
+        .nav-overlay {
+          display: none;
+          position: fixed;
+          inset: 0;
+          z-index: 98;
+          background: rgba(0,0,0,0.25);
+          cursor: default;
+        }
       }
 
-/* ANIMASI MASUK */
+/* =============================================
+   ANIMASI SCROLL — PURE CSS (tanpa JavaScript)
+   Menggunakan CSS Scroll-Driven Animations
+   Didukung: Chrome 115+, Edge 115+, Firefox 110+
+   ============================================= */
+
+@keyframes fade-up-in {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-left-in {
+  from {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Base: semua elemen .fade-up pakai scroll-driven animation */
 .fade-up {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .4s ease, transform .4s ease;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-.fade-up.muncul {
-  opacity: 1;
-  transform: translateY(0);
+  animation: fade-up-in both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
 }
 
-/* project card override */
-.project-card.fade-up {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .4s ease, transform .4s ease, box-shadow .15s;
-}
-.project-card.fade-up.muncul {
-  opacity: 1;
-  transform: translateY(0);
-}
-.project-card.fade-up.muncul:hover {
-  transform: translate(-2px, -2px);
-}
-
-.skill-pill.fade-up {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .4s ease, transform .4s ease, box-shadow .15s;
-}
-.skill-pill.fade-up.muncul {
-  opacity: 1;
-  transform: translateY(0);
-}
-.skill-pill.fade-up.muncul:hover {
-  transform: translateY(-2px);
-}
-
+/* Hero avatar — scale masuk lebih dramatis */
 .hero-avatar.fade-up {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .4s ease, transform .4s ease, box-shadow .15s;
-}
-.hero-avatar.fade-up.muncul {
-  opacity: 1;
-  transform: translateY(0);
-}
-.hero-avatar.fade-up.muncul:hover {
-  transform: translate(-2px, -2px);
+  animation-name: scale-in;
+  animation-timeline: view();
+  animation-range: entry 0% entry 50%;
 }
 
-.badge.fade-up {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .4s ease, transform .4s ease, box-shadow .15s;
+/* Section header — slide dari kiri */
+.section-header.fade-up {
+  animation-name: fade-left-in;
+  animation-timeline: view();
+  animation-range: entry 0% entry 50%;
 }
-.badge.fade-up.muncul {
-  opacity: 1;
-  transform: translateY(0);
+
+/* Project cards — stagger lewat nth-child */
+.project-card.fade-up {
+  animation-name: fade-up-in;
+  animation-timeline: view();
+  animation-range: entry 0% entry 60%;
 }
-.badge.fade-up.muncul:hover {
+.project-card.fade-up:nth-child(2) { animation-delay: 150ms; }
+.project-card.fade-up:nth-child(3) { animation-delay: 300ms; }
+.project-card.fade-up:nth-child(4) { animation-delay: 450ms; }
+
+/* Skill pills — stagger ringan */
+.skill-pill.fade-up {
+  animation-name: fade-up-in;
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
+}
+.skill-pill.fade-up:nth-child(2) { animation-delay: 80ms; }
+.skill-pill.fade-up:nth-child(3) { animation-delay: 160ms; }
+.skill-pill.fade-up:nth-child(4) { animation-delay: 240ms; }
+.skill-pill.fade-up:nth-child(5) { animation-delay: 320ms; }
+.skill-pill.fade-up:nth-child(6) { animation-delay: 400ms; }
+.skill-pill.fade-up:nth-child(7) { animation-delay: 480ms; }
+.skill-pill.fade-up:nth-child(8) { animation-delay: 560ms; }
+
+/* Badge — stagger kecil */
+.badge.fade-up:nth-child(2) { animation-delay: 120ms; }
+.badge.fade-up:nth-child(3) { animation-delay: 240ms; }
+
+/* Exp items — slide dari kiri berurutan */
+.exp-item.fade-up {
+  animation-name: fade-left-in;
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
+}
+.exp-item.fade-up:nth-child(2) { animation-delay: 150ms; }
+.exp-item.fade-up:nth-child(3) { animation-delay: 300ms; }
+
+/* Contact card — scale in */
+.contact-card.fade-up {
+  animation-name: scale-in;
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
+}
+
+/* Hover tetap berjalan normal setelah animasi selesai */
+.project-card:hover {
+  transform: translate(-2px, -2px);
+}
+.skill-pill:hover {
   transform: translateY(-2px);
+}
+.hero-avatar:hover {
+  transform: translate(-2px, -2px);
+}
+.badge:hover {
+  transform: translateY(-2px);
+}
+
+/* Fallback untuk browser lama yang belum support scroll-driven animations */
+@supports not (animation-timeline: view()) {
+  .fade-up {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
 }
 
 /* Navbar saat scroll */
 nav.scrolled {
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+[data-theme="dark"] nav.scrolled {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 .skill-pill {
@@ -356,5 +631,4 @@ nav.scrolled {
 }
 .contact-btn:hover i {
   transform: scale(1.2);
-  transition: 0.2s;
-}
+  transition: 0.2s;} 

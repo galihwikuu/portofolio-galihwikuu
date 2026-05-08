@@ -19,7 +19,6 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
-    /* ── Typing cursor ── */
     .typing-cursor {
       display: inline-block;
       width: 2px;
@@ -33,7 +32,6 @@
       50% { opacity: 0; }
     }
 
-    /* ── Stats section ── */
     .stats {
       display: flex;
       justify-content: center;
@@ -77,28 +75,20 @@
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
-    .hero-title {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
 
-    .name-wrap {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    
-    .wave {
-      display: inline-block;
+    /* Hero title — biarkan teks mengalir natural, wrap otomatis */
+    .hero-title {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 8px;
     }
 
     @media (max-width: 600px) {
-    .hero-text h1 {
-      font-size: 30px;
+      .hero-title {
+        font-size: 22px;
+      }
     }
-  }
   </style>
 </head>
 
@@ -134,7 +124,6 @@
       </li>
     </ul>
 
-    <!-- Hamburger -->
     <div class="nav-right">
 
       <button
@@ -142,7 +131,6 @@
         id="themeToggle"
         title="Toggle dark/light mode"
         aria-label="Toggle dark mode">
-
         <span class="knob"></span>
       </button>
 
@@ -175,13 +163,10 @@
 
     <div class="hero-text fade-up">
 
-    <h1 class="hero-title">
-      Halo, saya
-      <span class="name-wrap">
-        <span id="typed-name"></span>
-        <span class="wave">👋</span>
-      </span>
-    </h1>
+      <h1 class="hero-title">
+        Halo, saya <span id="typed-name"></span> 👋
+      </h1>
+
       <div class="subtitle fade-up" id="typed-subtitle"></div>
 
       <p>
@@ -253,7 +238,6 @@
   <script src="script.js"></script>
 
   <script>
-    /* ── Typing animation ── */
     function typeText(el, text, speed, onDone) {
       let i = 0;
       el.textContent = '';
@@ -282,7 +266,6 @@
       });
     });
 
-    /* ── Counter animation ── */
     function animateCounter(el) {
       const target = parseInt(el.dataset.target);
       const duration = 1200;

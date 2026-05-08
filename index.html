@@ -77,6 +77,22 @@
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
+    .hero-title {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .name-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .wave {
+      display: inline-block;
+    }
 
     @media (max-width: 600px) {
     .hero-text h1 {
@@ -159,11 +175,13 @@
 
     <div class="hero-text fade-up">
 
-      <h1>
-        Halo, saya
-        <span id="typed-name"></span>👋
-      </h1>
-
+    <h1 class="hero-title">
+      Halo, saya
+      <span class="name-wrap">
+        <span id="typed-name"></span>
+        <span class="wave">👋</span>
+      </span>
+    </h1>
       <div class="subtitle fade-up" id="typed-subtitle"></div>
 
       <p>

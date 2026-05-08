@@ -78,6 +78,8 @@
 
     /* Hero title — biarkan teks mengalir natural, wrap otomatis */
     .hero-title {
+      white-space: nowrap;
+      overflow: visible;
       font-size: 36px;
       font-weight: 800;
       line-height: 1.35;
@@ -86,7 +88,7 @@
 
     @media (max-width: 600px) {
       .hero-title {
-        font-size: 20px;
+        font-size: 18px;
       }
     }
   </style>
@@ -164,7 +166,7 @@
     <div class="hero-text fade-up">
 
     <h1 class="hero-title">
-      Halo, saya <span style="white-space: nowrap;"><span id="typed-name"></span> 👋</span>
+      Halo, saya <span id="typed-name"></span> 👋
     </h1>
 
       <div class="subtitle fade-up" id="typed-subtitle"></div>

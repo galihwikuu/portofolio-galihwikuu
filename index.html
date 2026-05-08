@@ -17,6 +17,67 @@
 
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* ── Typing cursor ── */
+    .typing-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: currentColor;
+      margin-left: 3px;
+      vertical-align: middle;
+      animation: blink 0.8s step-end infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    /* ── Stats section ── */
+    .stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      padding: 2.5rem 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      background: var(--white, #fff);
+      border: 2px solid var(--text, #111);
+      border-radius: 8px;
+      padding: 1.25rem 1.75rem;
+      text-align: center;
+      min-width: 140px;
+      flex: 1 1 140px;
+      max-width: 180px;
+      box-shadow: 4px 4px 0 var(--text, #111);
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .stat-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--text, #111);
+    }
+
+    .stat-number {
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+      color: var(--accent, #f97316);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text, #111);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+  </style>
 </head>
 
 <body>
@@ -94,12 +155,10 @@
 
       <h1>
         Halo, saya
-        <span>Galih Wiku Dhamar Aji!</span> 👋
+        <span id="typed-name"></span> 👋
       </h1>
 
-      <div class="subtitle fade-up">
-        Mahasiswa Teknik Informatika · Semester 4
-      </div>
+      <div class="subtitle fade-up" id="typed-subtitle"></div>
 
       <p>
         Berawal dari rasa penasaran terhadap dunia teknologi,
@@ -125,54 +184,34 @@
 
   <hr class="divider">
 
-  <!-- SKILL -->
-  <section id="skill">
+  <!-- STATS -->
+  <section id="statistik">
 
     <div class="section-header fade-up">
-      <span class="section-icon">🛠️</span>
-      <h2>Skill yang saat ini dipelajari</h2>
+      <span class="section-icon">📊</span>
+      <h2>Perjalanan sejauh ini</h2>
     </div>
 
-    <div class="skills-wrap">
+    <div class="stats">
 
-      <div class="skill-pill fade-up">
-        <i class="devicon-html5-plain colored"></i>
-        HTML & CSS
+      <div class="stat-card fade-up">
+        <div class="stat-number" data-target="6">0</div>
+        <div class="stat-label">Proyek Selesai</div>
       </div>
 
-      <div class="skill-pill fade-up">
-        <i class="devicon-javascript-plain colored"></i>
-        JavaScript
+      <div class="stat-card fade-up">
+        <div class="stat-number" data-target="9">0</div>
+        <div class="stat-label">Teknologi Dipelajari</div>
       </div>
 
-      <div class="skill-pill fade-up">
-        <i class="devicon-nodejs-plain colored"></i>
-        Node.js
+      <div class="stat-card fade-up">
+        <div class="stat-number" data-target="4">0</div>
+        <div class="stat-label">Semester Berjalan</div>
       </div>
 
-      <div class="skill-pill fade-up">
-        <i class="devicon-python-plain colored"></i>
-        Python
-      </div>
-
-      <div class="skill-pill fade-up">
-        <i class="devicon-php-plain colored"></i>
-        PHP
-      </div>
-
-      <div class="skill-pill fade-up">
-        <i class="devicon-mysql-plain colored"></i>
-        MySQL
-      </div>
-
-      <div class="skill-pill fade-up">
-        <i class="devicon-laravel-plain colored"></i>
-        Laravel
-      </div>
-
-      <div class="skill-pill fade-up">
-        <i class="devicon-flutter-plain colored"></i>
-        Flutter
+      <div class="stat-card fade-up">
+        <div class="stat-number" data-target="3">0</div>
+        <div class="stat-label">Tahun Pengalaman</div>
       </div>
 
     </div>
@@ -188,6 +227,66 @@
 
   <!-- SCRIPT -->
   <script src="script.js"></script>
+
+  <script>
+    /* ── Typing animation ── */
+    function typeText(el, text, speed, onDone) {
+      let i = 0;
+      el.textContent = '';
+      const cursor = document.createElement('span');
+      cursor.className = 'typing-cursor';
+      el.appendChild(cursor);
+
+      const interval = setInterval(() => {
+        el.insertBefore(document.createTextNode(text[i]), cursor);
+        i++;
+        if (i >= text.length) {
+          clearInterval(interval);
+          if (onDone) onDone();
+        }
+      }, speed);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const nameEl = document.getElementById('typed-name');
+      const subtitleEl = document.getElementById('typed-subtitle');
+
+      typeText(nameEl, 'Galih Wiku Dhamar Aji!', 60, () => {
+        setTimeout(() => {
+          typeText(subtitleEl, 'Mahasiswa Teknik Informatika · Semester 4', 40);
+        }, 300);
+      });
+    });
+
+    /* ── Counter animation ── */
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target);
+      const duration = 1200;
+      const step = target / (duration / 16);
+      let current = 0;
+
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        el.textContent = Math.floor(current);
+      }, 16);
+    }
+
+    const counters = document.querySelectorAll('.stat-number[data-target]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(c => observer.observe(c));
+  </script>
 
 </body>
 </html>

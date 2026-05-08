@@ -330,6 +330,26 @@
         text-decoration: none;
       }
       .project-link:hover { text-decoration: underline; }
+      .project-card {
+      display: flex;
+      flex-direction: column;
+      }
+      
+      /* bikin deskripsi jadi pendorong ke bawah */
+      .project-card p {
+      flex: 1;
+      }
+      
+      /* tags selalu di posisi bawah konsisten */
+      .project-tags {
+      margin-top: auto;
+      }
+      
+      /* link selalu sejajar paling bawah */
+      .project-link {
+      margin-top: 10px;
+      display: inline-block;
+      }
 
       /* PENGALAMAN */
       .exp-list { display: flex; flex-direction: column; gap: 16px; }

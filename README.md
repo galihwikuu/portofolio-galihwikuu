@@ -1,1 +1,1 @@
-galihwikuu.my.id
+www.galihwikuu.my.id
